@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Clubeez — Umerang Tracking Test Site</title>
+
+  <!-- ✅ UMERANG TRACKING SCRIPT -->
+  <script>
+    window.umerang = window.umerang || { q: [] };
+    window.umerang.track = window.umerang.track || function() { window.umerang.q.push(arguments); };
+    window.umerang.identify = window.umerang.identify || function() { window.umerang.q.push(arguments); };
+  </script>
+  <script defer src="https://stage-app.clubeez.com/umerang_collector.js?v=1.1.0&merchantId=UT09584F93"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #13131a;
+      --surface2: #1c1c28;
+      --accent: #6c63ff;
+      --accent2: #ff6584;
+      --accent3: #43e97b;
+      --text: #f0f0f8;
+      --muted: #8888aa;
+      --border: rgba(108,99,255,0.18);
+      --glow: 0 0 32px rgba(108,99,255,0.18);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem; color: var(--accent); letter-spacing: -0.5px; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--accent); color: #fff; border: none; padding: 0.55rem 1.3rem;
+      border-radius: 8px; font-weight: 600; font-size: 0.9rem; cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 6rem 2rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(108,99,255,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(108,99,255,0.12); border: 1px solid var(--border);
+      padding: 0.4rem 1rem; border-radius: 99px;
+      font-size: 0.78rem; font-weight: 600; color: var(--accent);
+      letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1.5rem;
+    }
+    .hero-badge span { width: 7px; height: 7px; background: var(--accent3); border-radius: 50%; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+
+    h1 {
+      font-family: 'Syne', sans-serif; font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800; line-height: 1.08; letter-spacing: -1.5px;
+      max-width: 780px; margin-bottom: 1.3rem;
+    }
+    h1 em { font-style: normal; color: var(--accent); }
+    .hero-sub {
+      font-size: 1.1rem; color: var(--muted); max-width: 520px;
+      line-height: 1.7; margin-bottom: 2.5rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .btn-primary {
+      background: var(--accent); color: #fff; border: none;
+      padding: 0.85rem 2rem; border-radius: 10px;
+      font-weight: 700; font-size: 1rem; cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(108,99,255,0.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(108,99,255,0.45); }
+    .btn-secondary {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border); padding: 0.85rem 2rem;
+      border-radius: 10px; font-weight: 600; font-size: 1rem; cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); background: rgba(108,99,255,0.07); }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem;
+    }
+    h2 { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: -0.5px; }
+    .divider { height: 1px; background: var(--border); margin: 0 2rem; }
+
+    /* ── CARDS ── */
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-top: 2rem; }
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.6rem; cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .card::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: var(--glow); }
+    .card:hover::after { opacity: 1; }
+    .card-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+    .card h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── VIDEO SECTION ── */
+    .video-wrap {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden; margin-top: 2rem;
+    }
+    .video-player {
+      width: 100%; aspect-ratio: 16/9; display: flex; align-items: center;
+      justify-content: center; background: linear-gradient(135deg, #1a1a2e, #0f0f1a);
+      position: relative; cursor: pointer;
+    }
+    .play-btn {
+      width: 72px; height: 72px; background: var(--accent);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 40px rgba(108,99,255,0.4);
+    }
+    .play-btn:hover { transform: scale(1.1); }
+    .video-label { position: absolute; bottom: 1.2rem; left: 1.2rem; font-size: 0.8rem; color: var(--muted); }
+    .video-progress-bar {
+      height: 4px; background: var(--surface2); position: relative; cursor: pointer;
+    }
+    .video-progress-fill {
+      height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width 0.5s linear;
+    }
+
+    /* ── FORM ── */
+    .form-section { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; margin-top: 2rem; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    @media(max-width:600px){ .form-grid { grid-template-columns: 1fr; } }
+    .field { display: flex; flex-direction: column; gap: 0.4rem; }
+    .field.full { grid-column: 1/-1; }
+    label { font-size: 0.82rem; font-weight: 600; color: var(--muted); letter-spacing: 0.03em; }
+    input, select, textarea {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 8px; padding: 0.7rem 1rem; color: var(--text);
+      font-size: 0.92rem; font-family: 'DM Sans', sans-serif;
+      outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent); box-shadow: 0 0 0 3px rgba(108,99,255,0.12);
+    }
+    textarea { resize: vertical; min-height: 100px; }
+    select option { background: var(--surface2); }
+    .form-error { font-size: 0.78rem; color: var(--accent2); margin-top: 0.2rem; display: none; }
+    .submit-btn {
+      margin-top: 1.5rem; background: var(--accent); color: #fff; border: none;
+      padding: 0.85rem 2.5rem; border-radius: 10px; font-weight: 700;
+      font-size: 1rem; cursor: pointer; transition: transform 0.2s, opacity 0.2s;
+      box-shadow: 0 4px 20px rgba(108,99,255,0.3);
+    }
+    .submit-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .success-msg {
+      display: none; margin-top: 1rem; padding: 1rem 1.4rem;
+      background: rgba(67,233,123,0.1); border: 1px solid rgba(67,233,123,0.3);
+      border-radius: 8px; color: var(--accent3); font-weight: 600; font-size: 0.9rem;
+    }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 300;
+      background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2.5rem; max-width: 460px; width: 90%;
+      position: relative; animation: slideUp 0.3s ease;
+    }
+    @keyframes slideUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    .modal h3 { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 0.8rem; }
+    .modal p { color: var(--muted); line-height: 1.6; margin-bottom: 1.5rem; }
+    .modal-close {
+      position: absolute; top: 1rem; right: 1rem; background: none; border: none;
+      color: var(--muted); font-size: 1.4rem; cursor: pointer; padding: 0.2rem 0.5rem;
+      border-radius: 6px; transition: background 0.2s;
+    }
+    .modal-close:hover { background: var(--surface2); color: var(--text); }
+    .modal-actions { display: flex; gap: 0.8rem; }
+    .modal-btn-confirm { background: var(--accent); color: #fff; border: none; padding: 0.7rem 1.5rem; border-radius: 8px; font-weight: 700; cursor: pointer; }
+    .modal-btn-cancel { background: transparent; color: var(--muted); border: 1px solid var(--border); padding: 0.7rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; }
+
+    /* ── SEARCH ── */
+    .search-wrap { margin-top: 2rem; position: relative; }
+    .search-input-wrap { display: flex; gap: 0.8rem; }
+    #search-input {
+      flex: 1; padding: 0.8rem 1.2rem; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 10px; color: var(--text);
+      font-size: 0.95rem; font-family: 'DM Sans', sans-serif; outline: none;
+      transition: border-color 0.2s;
+    }
+    #search-input:focus { border-color: var(--accent); }
+    .search-btn {
+      background: var(--accent); color: #fff; border: none; padding: 0.8rem 1.5rem;
+      border-radius: 10px; font-weight: 700; cursor: pointer;
+    }
+    .search-results { margin-top: 1rem; display: none; }
+    .search-result-item {
+      padding: 0.85rem 1.2rem; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; margin-bottom: 0.6rem; cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .search-result-item:hover { border-color: var(--accent); background: var(--surface2); }
+    .search-result-item h4 { font-size: 0.92rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .search-result-item p { font-size: 0.8rem; color: var(--muted); }
+
+    /* ── SCROLL TRACKER ── */
+    #scroll-bar {
+      position: fixed; top: 0; left: 0; height: 3px; z-index: 500;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      width: 0%; transition: width 0.1s;
+    }
+
+    /* ── DOWNLOAD / EXTERNAL LINKS ── */
+    .links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem; }
+    .link-item {
+      display: flex; align-items: center; gap: 0.8rem;
+      padding: 1rem 1.2rem; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; text-decoration: none; color: var(--text);
+      font-weight: 600; font-size: 0.9rem; transition: border-color 0.2s, transform 0.2s;
+    }
+    .link-item:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .link-item .icon { font-size: 1.4rem; }
+
+    /* ── USER CREATION ── */
+    .user-form { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; margin-top: 2rem; }
+    .user-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+    .user-card {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1rem; text-align: center;
+      animation: fadeIn 0.4s ease;
+    }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
+    .user-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 1.1rem; margin: 0 auto 0.6rem;
+    }
+    .user-card h4 { font-size: 0.88rem; font-weight: 700; }
+    .user-card p { font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 3rem 2rem;
+      border-top: 1px solid var(--border); color: var(--muted); font-size: 0.85rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ── VISIBILITY OBSERVER ── */
+    .observe-target { opacity: 0; transform: translateY(20px); transition: opacity 0.5s, transform 0.5s; }
+    .observe-target.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- Scroll Progress Bar -->
+<div id="scroll-bar"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">⚡ Clubeez</div>
+  <div class="nav-links">
+    <a href="#features" onclick="track('navigation',{destination:'features'})">Features</a>
+    <a href="#video" onclick="track('navigation',{destination:'video'})">Demo</a>
+    <a href="#search-section" onclick="track('navigation',{destination:'search'})">Search</a>
+    <a href="#contact" onclick="track('navigation',{destination:'contact'})">Contact</a>
+    <a href="#join" onclick="track('navigation',{destination:'join'})">Join</a>
+  </div>
+  <button class="nav-cta" onclick="openModal('nav-cta')">Get Started</button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge"><span></span> Umerang Tracking Active</div>
+  <h1>Track Every <em>Event</em><br/>In Real Time</h1>
+  <p class="hero-sub">A complete test environment for Umerang analytics. Every interaction on this page fires a real tracking event directly to your Umerang dashboard.</p>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="openModal('hero-cta')">🚀 Start Free Trial</button>
+    <button class="btn-secondary" onclick="track('navigation',{destination:'watch-demo'})">▶ Watch Demo</button>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<div class="divider"></div>
+<section id="features">
+  <p class="section-label observe-target">Features</p>
+  <h2 class="observe-target">Everything Your Club Needs</h2>
+  <p style="color:var(--muted);max-width:500px" class="observe-target">Click any card — fires a click event to Umerang.</p>
+  <div class="cards">
+    <div class="card observe-target" onclick="track('click',{element:'feature_card',label:'Membership Management'})">
+      <div class="card-icon">🏆</div>
+      <h3>Membership Management</h3>
+      <p>Manage members, tiers, renewals, and access control all in one place.</p>
+    </div>
+    <div class="card observe-target" onclick="track('click',{element:'feature_card',label:'Event Scheduling'})">
+      <div class="card-icon">📅</div>
+      <h3>Event Scheduling</h3>
+      <p>Create and promote events, manage RSVPs, and track attendance seamlessly.</p>
+    </div>
+    <div class="card observe-target" onclick="track('click',{element:'feature_card',label:'Digital Passes'})">
+      <div class="card-icon">🎫</div>
+      <h3>Digital Passes</h3>
+      <p>Issue branded digital passes for members. Apple & Google Wallet ready.</p>
+    </div>
+    <div class="card observe-target" onclick="track('click',{element:'feature_card',label:'Analytics Dashboard'})">
+      <div class="card-icon">📊</div>
+      <h3>Analytics Dashboard</h3>
+      <p>Real-time insights powered by Umerang. Know what your members do.</p>
+    </div>
+    <div class="card observe-target" onclick="track('click',{element:'feature_card',label:'Email Campaigns'})">
+      <div class="card-icon">✉️</div>
+      <h3>Email Campaigns</h3>
+      <p>Targeted email automation based on member behavior and segments.</p>
+    </div>
+    <div class="card observe-target" onclick="track('click',{element:'feature_card',label:'Vouchers & Rewards'})">
+      <div class="card-icon">🎁</div>
+      <h3>Vouchers & Rewards</h3>
+      <p>Loyalty programs, discount vouchers, and referral tracking built-in.</p>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<div class="divider"></div>
+<section id="video">
+  <p class="section-label observe-target">Demo</p>
+  <h2 class="observe-target">See It In Action</h2>
+  <div class="video-wrap observe-target">
+    <div class="video-player" id="video-player" onclick="handleVideoPlay()">
+      <div class="play-btn" id="play-btn">▶</div>
+      <div class="video-label" id="video-label">Clubeez Platform Overview — 3:24</div>
+    </div>
+    <div class="video-progress-bar" onclick="handleVideoSeek(event)">
+      <div class="video-progress-fill" id="video-progress"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH -->
+<div class="divider"></div>
+<section id="search-section">
+  <p class="section-label observe-target">Search</p>
+  <h2 class="observe-target">Find What You Need</h2>
+  <p style="color:var(--muted)" class="observe-target">Fires search + search_result_click events to Umerang.</p>
+  <div class="search-wrap observe-target">
+    <div class="search-input-wrap">
+      <input type="text" id="search-input" placeholder="Try: membership, events, passes..." oninput="handleSearchInput(this.value)"/>
+      <button class="search-btn" onclick="doSearch()">Search</button>
+    </div>
+    <div class="search-results" id="search-results"></div>
+  </div>
+</section>
+
+<!-- DOWNLOADS & EXTERNAL LINKS -->
+<div class="divider"></div>
+<section>
+  <p class="section-label observe-target">Resources</p>
+  <h2 class="observe-target">Downloads & Links</h2>
+  <p style="color:var(--muted)" class="observe-target">Fires file_download + external_link_click events to Umerang.</p>
+  <div class="links-grid observe-target">
+    <a class="link-item" href="#" onclick="track('file_download',{file_name:'clubeez-guide.pdf',file_type:'pdf'}); return false;"><span class="icon">📄</span> Member Guide PDF</a>
+    <a class="link-item" href="#" onclick="track('file_download',{file_name:'clubeez-branding.zip',file_type:'zip'}); return false;"><span class="icon">🗂️</span> Brand Kit ZIP</a>
+    <a class="link-item" href="https://clubeez.com" target="_blank" onclick="track('external_link_click',{destination_domain:'clubeez.com'})"><span class="icon">🌐</span> Visit Clubeez</a>
+    <a class="link-item" href="https://umerang.com" target="_blank" onclick="track('external_link_click',{destination_domain:'umerang.com'})"><span class="icon">📡</span> Visit Umerang</a>
+  </div>
+</section>
+
+<!-- CONTACT FORM -->
+<div class="divider"></div>
+<section id="contact">
+  <p class="section-label observe-target">Contact</p>
+  <h2 class="observe-target">Get In Touch</h2>
+  <p style="color:var(--muted)" class="observe-target">Fires form_focus, form_change, form_error, form_submission events to Umerang.</p>
+  <div class="form-section observe-target">
+    <form id="contact-form" onsubmit="handleContactSubmit(event)">
+      <div class="form-grid">
+        <div class="field">
+          <label>First Name *</label>
+          <input type="text" id="fname" placeholder="Jordan"
+            onfocus="track('form_focus',{form_id:'contact_form',field_name:'first_name'})"
+            onblur="track('form_blur',{form_id:'contact_form',field_name:'first_name'})"
+            oninput="track('form_change',{form_id:'contact_form',field_name:'first_name'})"/>
+          <div class="form-error" id="fname-err">First name is required</div>
+        </div>
+        <div class="field">
+          <label>Last Name *</label>
+          <input type="text" id="lname" placeholder="Smith"
+            onfocus="track('form_focus',{form_id:'contact_form',field_name:'last_name'})"
+            onblur="track('form_blur',{form_id:'contact_form',field_name:'last_name'})"
+            oninput="track('form_change',{form_id:'contact_form',field_name:'last_name'})"/>
+          <div class="form-error" id="lname-err">Last name is required</div>
+        </div>
+        <div class="field">
+          <label>Email *</label>
+          <input type="email" id="cemail" placeholder="jordan@example.com"
+            onfocus="track('form_focus',{form_id:'contact_form',field_name:'email'})"
+            onblur="track('form_blur',{form_id:'contact_form',field_name:'email'})"
+            oninput="track('form_change',{form_id:'contact_form',field_name:'email'})"/>
+          <div class="form-error" id="email-err">Valid email is required</div>
+        </div>
+        <div class="field">
+          <label>Club Type</label>
+          <select id="club-type"
+            onfocus="track('form_focus',{form_id:'contact_form',field_name:'club_type'})"
+            onchange="track('form_change',{form_id:'contact_form',field_name:'club_type'})">
+            <option value="">Select type...</option>
+            <option>Sports Club</option>
+            <option>Social Club</option>
+            <option>Fitness Club</option>
+            <option>Hobby Club</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label>Message</label>
+          <textarea id="message" placeholder="Tell us about your club..."
+            onfocus="track('form_focus',{form_id:'contact_form',field_name:'message'})"
+            onblur="track('form_blur',{form_id:'contact_form',field_name:'message'})"
+            oninput="track('form_change',{form_id:'contact_form',field_name:'message'})"></textarea>
+        </div>
+      </div>
+      <button type="submit" class="submit-btn">Send Message 📨</button>
+      <div class="success-msg" id="contact-success">✅ Message sent! form_submission event fired to Umerang.</div>
+    </form>
+  </div>
+</section>
+
+<!-- USER CREATION -->
+<div class="divider"></div>
+<section id="join">
+  <p class="section-label observe-target">Join</p>
+  <h2 class="observe-target">Create a Member Account</h2>
+  <p style="color:var(--muted)" class="observe-target">Fires form_submission + identify() to link the user identity in Umerang.</p>
+  <div class="user-form observe-target">
+    <form id="register-form" onsubmit="handleRegister(event)">
+      <div class="form-grid">
+        <div class="field">
+          <label>Full Name *</label>
+          <input type="text" id="reg-name" placeholder="Alex Johnson"
+            onfocus="track('form_focus',{form_id:'register_form',field_name:'name'})"
+            oninput="track('form_change',{form_id:'register_form',field_name:'name'})"/>
+          <div class="form-error" id="reg-name-err">Name is required</div>
+        </div>
+        <div class="field">
+          <label>Email *</label>
+          <input type="email" id="reg-email" placeholder="alex@example.com"
+            onfocus="track('form_focus',{form_id:'register_form',field_name:'email'})"
+            oninput="track('form_change',{form_id:'register_form',field_name:'email'})"/>
+          <div class="form-error" id="reg-email-err">Valid email required</div>
+        </div>
+        <div class="field">
+          <label>Password *</label>
+          <input type="password" id="reg-pass" placeholder="Min 8 characters"
+            onfocus="track('form_focus',{form_id:'register_form',field_name:'password'})"
+            oninput="track('form_change',{form_id:'register_form',field_name:'password'})"/>
+          <div class="form-error" id="reg-pass-err">Min 8 characters required</div>
+        </div>
+        <div class="field">
+          <label>Membership Plan</label>
+          <select id="reg-plan"
+            onfocus="track('form_focus',{form_id:'register_form',field_name:'plan'})"
+            onchange="track('form_change',{form_id:'register_form',field_name:'plan'})">
+            <option value="free">Free — Basic Access</option>
+            <option value="pro">Pro — $9/mo</option>
+            <option value="enterprise">Enterprise — $29/mo</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="submit-btn">Create Account 🚀</button>
+      <div class="success-msg" id="register-success"></div>
+    </form>
+    <div class="user-cards" id="user-cards"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Clubeez — Powered by <a href="#">Umerang Analytics</a></p>
+  <p style="margin-top:0.5rem;font-size:0.75rem">🟢 Merchant ID: <code>UT09584F93</code> — All tracking events active</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3 id="modal-title">Start Your Free Trial</h3>
+    <p id="modal-body">Join thousands of clubs already using Clubeez. No credit card required for 14 days.</p>
+    <div class="modal-actions">
+      <button class="modal-btn-confirm" onclick="handleModalAction()">Confirm ✓</button>
+      <button class="modal-btn-cancel" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ── UMERANG TRACK SHORTHAND ── */
+  function track(eventName, props) {
+    if (window.umerang && window.umerang.track) {
+      window.umerang.track(eventName, props || {});
+    }
+  }
+
+  /* ── SCROLL TRACKING ── */
+  let scrollMilestones = new Set();
+  window.addEventListener('scroll', () => {
+    const pct = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+    document.getElementById('scroll-bar').style.width = pct + '%';
+    [25, 50, 75, 100].forEach(m => {
+      if (pct >= m && !scrollMilestones.has(m)) {
+        scrollMilestones.add(m);
+        track('scroll', { depth_percent: m, page: window.location.pathname });
+      }
+    });
+  });
+
+  /* ── VIDEO TRACKING ── */
+  let videoPlaying = false;
+  let videoProgress = 0;
+  let videoTimer = null;
+
+  function handleVideoPlay() {
+    videoPlaying = !videoPlaying;
+    if (videoPlaying) {
+      track('video_start', { video_title: 'Clubeez Platform Overview', duration: 204 });
+      document.getElementById('play-btn').textContent = '⏸';
+      document.getElementById('video-label').textContent = 'Playing...';
+      videoTimer = setInterval(() => {
+        videoProgress = Math.min(videoProgress + 2, 100);
+        document.getElementById('video-progress').style.width = videoProgress + '%';
+        [25, 50, 75].forEach(m => {
+          if (videoProgress >= m && !window['vp' + m]) {
+            window['vp' + m] = true;
+            track('video_progress', { video_title: 'Clubeez Platform Overview', percent: m });
+          }
+        });
+        if (videoProgress >= 100) {
+          clearInterval(videoTimer);
+          track('video_end', { video_title: 'Clubeez Platform Overview' });
+          document.getElementById('play-btn').textContent = '↺';
+          document.getElementById('video-label').textContent = 'Video ended';
+          videoPlaying = false; videoProgress = 0;
+        }
+      }, 300);
+    } else {
+      clearInterval(videoTimer);
+      document.getElementById('play-btn').textContent = '▶';
+    }
+  }
+
+  function handleVideoSeek(e) {
+    const pct = Math.round((e.offsetX / e.currentTarget.offsetWidth) * 100);
+    videoProgress = pct;
+    document.getElementById('video-progress').style.width = pct + '%';
+    track('video_progress', { video_title: 'Clubeez Platform Overview', percent: pct, type: 'seek' });
+  }
+
+  /* ── SEARCH ── */
+  const fakeResults = [
+    { title: 'Membership Plans', desc: 'View all membership tiers and pricing' },
+    { title: 'Event Calendar', desc: 'Browse upcoming club events' },
+    { title: 'Digital Pass Setup', desc: 'Configure your member pass' },
+    { title: 'Analytics Reports', desc: 'Access real-time member analytics' },
+    { title: 'Email Campaigns', desc: 'Create and send targeted campaigns' },
+  ];
+  let searchTimeout;
+
+  function handleSearchInput(val) {
+    clearTimeout(searchTimeout);
+    if (!val) { document.getElementById('search-results').style.display = 'none'; return; }
+    searchTimeout = setTimeout(() => doSearch(), 600);
+  }
+
+  function doSearch() {
+    const q = document.getElementById('search-input').value;
+    if (!q) return;
+    track('search', { query: q, result_count: fakeResults.length });
+    const container = document.getElementById('search-results');
+    container.style.display = 'block';
+    const filtered = fakeResults.filter(r =>
+      r.title.toLowerCase().includes(q.toLowerCase()) || r.desc.toLowerCase().includes(q.toLowerCase())
+    );
+    const items = filtered.length ? filtered : fakeResults.slice(0, 3);
+    container.innerHTML = items.map((r, i) =>
+      `<div class="search-result-item" onclick="track('search_result_click',{result_title:'${r.title}',position:${i+1}})">
+        <h4>${r.title}</h4><p>${r.desc}</p>
+      </div>`
+    ).join('');
+  }
+
+  /* ── CONTACT FORM ── */
+  function handleContactSubmit(e) {
+    e.preventDefault();
+    let valid = true;
+    const fname = document.getElementById('fname').value.trim();
+    const lname = document.getElementById('lname').value.trim();
+    const cemail = document.getElementById('cemail').value.trim();
+    if (!fname) { document.getElementById('fname-err').style.display='block'; track('form_error',{form_id:'contact_form',field_name:'first_name',error:'required'}); valid=false; } else document.getElementById('fname-err').style.display='none';
+    if (!lname) { document.getElementById('lname-err').style.display='block'; track('form_error',{form_id:'contact_form',field_name:'last_name',error:'required'}); valid=false; } else document.getElementById('lname-err').style.display='none';
+    if (!cemail || !cemail.includes('@')) { document.getElementById('email-err').style.display='block'; track('form_error',{form_id:'contact_form',field_name:'email',error:'invalid'}); valid=false; } else document.getElementById('email-err').style.display='none';
+    if (!valid) return;
+    track('form_submission', { form_id: 'contact_form', fields: ['first_name','last_name','email','club_type','message'] });
+    document.getElementById('contact-success').style.display = 'block';
+    e.target.reset();
+  }
+
+  /* ── USER CREATION ── */
+  let createdUsers = [];
+  function handleRegister(e) {
+    e.preventDefault();
+    let valid = true;
+    const name = document.getElementById('reg-name').value.trim();
+    const email = document.getElementById('reg-email').value.trim();
+    const pass = document.getElementById('reg-pass').value;
+    const plan = document.getElementById('reg-plan').value;
+    if (!name) { document.getElementById('reg-name-err').style.display='block'; track('form_error',{form_id:'register_form',field_name:'name',error:'required'}); valid=false; } else document.getElementById('reg-name-err').style.display='none';
+    if (!email || !email.includes('@')) { document.getElementById('reg-email-err').style.display='block'; track('form_error',{form_id:'register_form',field_name:'email',error:'invalid'}); valid=false; } else document.getElementById('reg-email-err').style.display='none';
+    if (!pass || pass.length < 8) { document.getElementById('reg-pass-err').style.display='block'; track('form_error',{form_id:'register_form',field_name:'password',error:'too_short'}); valid=false; } else document.getElementById('reg-pass-err').style.display='none';
+    if (!valid) return;
+
+    // Fire form_submission to Umerang
+    track('form_submission', { form_id: 'register_form', fields: ['name','email','plan'] });
+
+    // Fire identify — links anonymous visitor to known user in Umerang
+    if (window.umerang && window.umerang.identify) {
+      window.umerang.identify({ email, name, plan, source: 'clubeez_test_site' });
+    }
+
+    createdUsers.push({ name, email, plan });
+    renderUsers();
+    const msg = document.getElementById('register-success');
+    msg.style.display = 'block';
+    msg.textContent = `✅ "${name}" created! form_submission + identify() fired to Umerang.`;
+    e.target.reset();
+  }
+
+  function renderUsers() {
+    const container = document.getElementById('user-cards');
+    container.innerHTML = createdUsers.map(u => `
+      <div class="user-card">
+        <div class="user-avatar">${u.name[0].toUpperCase()}</div>
+        <h4>${u.name}</h4>
+        <p>${u.email}</p>
+        <p style="color:var(--accent);font-size:0.72rem;margin-top:0.3rem">${u.plan}</p>
+      </div>
+    `).join('');
+  }
+
+  /* ── MODAL ── */
+  let currentModal = '';
+  function openModal(source) {
+    currentModal = source;
+    document.getElementById('modal-overlay').classList.add('active');
+    track('modal_open', { modal_id: 'cta_modal', trigger: source });
+  }
+  function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('active');
+    track('modal_close', { modal_id: 'cta_modal' });
+  }
+  function handleModalAction() {
+    track('modal_action', { modal_id: 'cta_modal', action: 'confirm', trigger: currentModal });
+    closeModal();
+  }
+  document.getElementById('modal-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  /* ── VISIBILITY OBSERVER ── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        track('element_view', { element: entry.target.tagName, section: entry.target.closest('section')?.id || 'hero' });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.observe-target').forEach(el => observer.observe(el));
+
+  /* ── SESSION START + PAGE VIEW ── */
+  window.addEventListener('load', () => {
+    track('session_start', { referrer: document.referrer || 'direct', page: window.location.pathname });
+    track('page_view', { title: document.title, url: window.location.href });
+  });
+
+  /* ── VISIBILITY CHANGE ── */
+  document.addEventListener('visibilitychange', () => {
+    track('visibility_change', { state: document.visibilityState });
+  });
+
+  /* ── PRINT ── */
+  window.addEventListener('beforeprint', () => track('print', { page: window.location.href }));
+</script>
+</body>
+</html>
